@@ -1,0 +1,87 @@
+% Bihan Qian's resume. Build: SOURCE_DATE_EPOCH=0 tectonic -X compile Bihan_Qian_Resume-Full.tex
+\documentclass{article}
+\usepackage[margin=0.4in]{geometry}
+\usepackage[T1]{fontenc}
+\renewcommand{\familydefault}{Carlito-LF}
+% No ligatures or kerns after f; microtype's \DisableLigatures[f] is pdfTeX-only
+\XeTeXinterchartokenstate=1
+\newXeTeXintercharclass\fclass
+\XeTeXcharclass`f=\fclass
+\XeTeXinterchartoks\fclass 0={\kern0pt}
+\XeTeXinterchartoks\fclass\fclass={\kern0pt}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\definecolor{ink}{HTML}{161616}
+\definecolor{navy}{HTML}{152D3D}
+\definecolor{muted}{HTML}{434B52}
+\definecolor{link}{HTML}{315F78}
+\definecolor{rule}{HTML}{9DAEBB}
+\hypersetup{
+  colorlinks,
+  urlcolor=link,
+  pdfauthor={Bihan Qian},
+  pdftitle={Bihan Qian | AI Engineer},
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\raggedright
+\setlist{nosep, leftmargin=11bp, labelsep=4bp, topsep=1bp, itemsep=1bp, after=\endgraf\addvspace{2.5bp}}
+
+\newcommand{\sep}{\enspace|\enspace}
+\newcommand{\name}[1]{{\color{navy}\bfseries#1}}
+\newcommand{\when}[1]{\hfill{\color{muted}#1\par}}
+\newcommand{\heading}[1]{\addvspace{4bp}\name{#1}\par
+  \vspace{1.5bp}{\color{rule}\hrule}\vspace{3bp}}
+
+\begin{document}
+% The body's line height (12bp) is LINE_PT in tools/resume.py: change both together.
+\fontsize{10bp}{12bp}\selectfont\color{ink}
+
+{\centering
+\name{\fontsize{20bp}{24bp}\selectfont Bihan Qian}\par
+{\fontsize{10.5bp}{14bp}\selectfont\color{muted}AI Engineer | Agent Platforms, Data Infrastructure \& Forecasting\par}
+\vspace{2bp}
+{\fontsize{9.5bp}{12bp}\selectfont Denver, Colorado, United States\sep\href{mailto:qianbihan@gmail.com}{qianbihan@gmail.com}\sep(646)~350-9785\sep\href{https://www.linkedin.com/in/bihan-q-9a5517250}{linkedin.com/in/bihan-q-9a5517250}\sep\href{https://bb.style/}{bb.style}\par}}
+
+\heading{EDUCATION}
+\name{Columbia University}\sep M.A., Statistics\when{Aug 2022 -- Dec 2023}
+\vspace{1bp}
+\name{Denison University}\sep B.A., Mathematics\when{Aug 2017 -- Dec 2020}
+\vspace{1bp}
+\name{Denison University}\sep B.A., Economics\when{Aug 2017 -- Dec 2020}
+
+\heading{SKILLS}
+\name{Languages / Software:} Python, SQL, TypeScript/JavaScript, FastAPI, React, REST APIs, Git, Linux\par
+\name{AI / ML / Evals:} PyTorch, Hugging Face Transformers, Chronos-2, XGBoost, Keras, MCP, RAG, tool/function calling, multi-agent orchestration, human-in-the-loop, model serving, retraining, holdout/OOS, A/A controls, shadow/champion, offline replay\par
+\name{Data / Cloud:} BigQuery, Airflow/Cloud Composer, GCP (Cloud Run/Functions/Jobs; Pub/Sub; GCS; Vertex AI), AWS/S3, ETL/ELT, data modeling, schema evolution, idempotent processing, time-series pipelines\par
+\name{Platform / Reliability:} Docker, Terraform, GitHub Actions, Cloud Build, CI/CD, OAuth/OIDC/IAM, OpenTelemetry, monitoring/alerting, retries/reprocessing, audit trails, rollback, Claude Code, OpenAI Codex, Cursor\par
+\name{Domain Data:} NOAA HRRR, GFS, WeatherNext 3, SCADA, ISO/RTO/OASIS, renewable telemetry, transmission/grid and market time series\par
+
+\heading{WORK EXPERIENCE}
+\name{\fontsize{11bp}{12bp}\selectfont Guzman Energy LLC}\par
+\textit{AI Engineer (Agent Platforms \& Data Systems)}\when{Feb 2025 -- Present}
+\begin{itemize}
+  \item Architected a secure company-wide Claude/MCP platform with OAuth/OIDC/IAM, forwarded user identity, default-deny tool/vendor/data controls, and OpenTelemetry; reusable adapters exposed internal and vendor APIs as governed agent tools, supporting 33K+ agent tool calls and 8.4K MCP calls Aug MTD at 99.87\% platform reliability.
+  \item Built the AEGIS backend platform across \textasciitilde{}30 production services powering Data Marketplace, Data Marts, Weather, Email, Monitor, retrieval, and agent workflows; standardized API Gateway routes, BigQuery access, reusable Python service patterns, CI/CD, and observability.
+  \item Re-architected a BigQuery data editor into a scope-bounded, transactional, AI-guided human-in-the-loop workflow with fingerprint concurrency checks, staging, snapshots/rollback, idempotent saves, audit events, cost/size guardrails, and a Claude-facing draft API where agents propose and humans commit.
+  \item Built an autonomous AI research and evaluation engine around propose -> filter -> prove -> monitor -> evolve loops with multi-model peer review, frozen benchmarks, A/A controls, leak-safe holdouts, typed falsification gates, and experiment provenance; 338 experiments were judged through served scoreboards and human owner gates.
+  \item Built real-time NOAA HRRR/GFS ingestion on Cloud Run/Pub/Sub, parsing GRIB2 as files arrive, evolving schemas, staging writes, archiving raw data, and reprocessing late/partial runs; produced a 57.9M-row HRRR history and extended ingestion to 12 generation-asset points.
+  \item Productionized an 8-entity Chronos-2 probabilistic forecasting fleet on 137 Cloud Run jobs / 155 schedulers, including 34 L4-GPU retraining jobs, hourly inference, p10-p90 outputs, shadow/champion evaluation, and a 37.9M-row forecast table benchmarked daily against external vendor forecasts.
+  \item Built governed enterprise context over 300+ BigQuery tables and 80 views with hybrid vector+lexical retrieval/RRF, BM25F catalog search, certified-data boosting, relevance tests, and production-query replay; led UAT and AI-workflow migration across 10 departments (\textasciitilde{}90\% of users).
+  \item Shipped 8+ full-stack AI applications and Agent Skills including ticket self-remediation, data-reliability incident memory, code-review/auto-PR, and security-scanning agents; workflows served 86 users and 20 traders with 98\% first-notice reliability while keeping human approval on irreversible actions.
+\end{itemize}
+\textit{Data Engineer}\when{Apr 2024 -- Feb 2025}
+\begin{itemize}
+  \item Built and operated 100+ production data services and pipelines across GCP/AWS using Python/SQL, BigQuery, Cloud Run/Functions, Pub/Sub, S3, REST APIs, SFTP/FTP/SharePoint, and idempotent MERGE patterns; work remains active across 42 production Cloud Functions.
+  \item Integrated and governed high-volume grid/market/time-series data including 180M one-minute SCADA observations, 457M OASIS transmission offerings, 441k reservations, 35k NAESB e-tags, nodal prices, renewable telemetry, and five-minute revenue meters; debugged timing, duplication, staleness, schema, and data-quality failures.
+  \item Standardized CI/CD, release controls, and observability across 237 Cloud Run services for 10+ engineers, reducing production time-to-detect to under 1 minute; also operated an Airflow/Cloud Composer forecasting fleet for 7 utilities with automated monitoring and model interpretability.
+\end{itemize}
+\textit{Data Scientist Intern}\when{Feb 2024 -- Apr 2024}
+\begin{itemize}
+  \item Developed and evaluated an XGBoost wind-generation forecast for a 300 MW wind farm using weather features, quantifying weather-to-generation relationships and renewable forecast performance.
+\end{itemize}
+\end{document}
